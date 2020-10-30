@@ -13,7 +13,6 @@ import org.springframework.stereotype.Repository;
  *
  * @author Deo Lahara
  */
-
 @Repository
 public interface EmployeeRepository extends JpaRepository<Employee, String>{
     

@@ -7,12 +7,11 @@ package bootcamp37.mbc.repositories;
 
 import bootcamp37.mbc.entities.Batch;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
 
 /**
  *
  * @author Deo Lahara
  */
-@Repository
-public interface BatchRepository extends JpaRepository<Batch, String>{
+public interface BatchRepository extends JpaRepository<Batch, String> {
+    
 }

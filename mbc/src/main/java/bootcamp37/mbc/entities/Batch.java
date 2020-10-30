@@ -7,9 +7,7 @@ package bootcamp37.mbc.entities;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -18,12 +16,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -60,8 +56,6 @@ public class Batch implements Serializable {
     @JoinColumn(name = "employee", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Employee employee;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "batch", fetch = FetchType.LAZY)
-    private List<Class> classList;
 
     public Batch() {
     }
@@ -82,7 +76,6 @@ public class Batch implements Serializable {
         this.endDate = endDate;
     }
 
-    
     public Batch(String id, String name, Date startDate, Date endDate, Course course, Employee employee) {
         this.id = id;
         this.name = name;
@@ -92,6 +85,20 @@ public class Batch implements Serializable {
         this.employee = employee;
     }
 
+    public Batch(String name, Date startDate, Date endDate, Course course, Employee employee) {
+        this.name = name;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.course = course;
+        this.employee = employee;
+    }
+
+    public Batch(String name, Date startDate, Date endDate) {
+        this.name = name;
+        this.startDate = startDate;
+        this.endDate = endDate;
+    }
+    
     public String getId() {
         return id;
     }
@@ -138,15 +145,6 @@ public class Batch implements Serializable {
 
     public void setEmployee(Employee employee) {
         this.employee = employee;
-    }
-
-    @XmlTransient
-    public List<Class> getClassList() {
-        return classList;
-    }
-
-    public void setClassList(List<Class> classList) {
-        this.classList = classList;
     }
 
     @Override

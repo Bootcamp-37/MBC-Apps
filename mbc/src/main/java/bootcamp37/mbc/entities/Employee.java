@@ -44,6 +44,9 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Employee.findByAddress", query = "SELECT e FROM Employee e WHERE e.address = :address")})
 public class Employee implements Serializable {
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "employee", fetch = FetchType.LAZY)
+    private List<Batch> batchList;
+
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -52,31 +55,28 @@ public class Employee implements Serializable {
     @Basic(optional = false)
     @Column(name = "name")
     private String name;
+    @Basic(optional = false)
     @Column(name = "birth_date")
     @Temporal(TemporalType.DATE)
     private Date birthDate;
+    @Basic(optional = false)
     @Column(name = "gender")
     private String gender;
+    @Basic(optional = false)
     @Column(name = "email")
     private String email;
+    @Basic(optional = false)
     @Column(name = "hire_date")
     @Temporal(TemporalType.DATE)
     private Date hireDate;
     @Column(name = "end_date")
     @Temporal(TemporalType.DATE)
     private Date endDate;
+    @Basic(optional = false)
     @Column(name = "phone_number")
     private String phoneNumber;
     @Column(name = "address")
     private String address;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "employee", fetch = FetchType.LAZY)
-    private List<Batch> batchList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "employee", fetch = FetchType.LAZY)
-    private List<Skills> skillsList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "employee", fetch = FetchType.LAZY)
-    private List<Placement> placementList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "employee", fetch = FetchType.LAZY)
-    private List<Class> classList;
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "employee", fetch = FetchType.LAZY)
     private User user;
 
@@ -87,22 +87,14 @@ public class Employee implements Serializable {
         this.id = id;
     }
 
-    public Employee(String id, String name) {
-        this.id = id;
-        this.name = name;
-    }
-
-    public Employee(String id, String name, Date birthDate, String gender, String email, Date hireDate, Date endDate, String phoneNumber, String address, User user) {
+    public Employee(String id, String name, Date birthDate, String gender, String email, Date hireDate, String phoneNumber) {
         this.id = id;
         this.name = name;
         this.birthDate = birthDate;
         this.gender = gender;
         this.email = email;
         this.hireDate = hireDate;
-        this.endDate = endDate;
         this.phoneNumber = phoneNumber;
-        this.address = address;
-        this.user = user;
     }
 
     public String getId() {
@@ -177,42 +169,6 @@ public class Employee implements Serializable {
         this.address = address;
     }
 
-    @XmlTransient
-    public List<Batch> getBatchList() {
-        return batchList;
-    }
-
-    public void setBatchList(List<Batch> batchList) {
-        this.batchList = batchList;
-    }
-
-    @XmlTransient
-    public List<Skills> getSkillsList() {
-        return skillsList;
-    }
-
-    public void setSkillsList(List<Skills> skillsList) {
-        this.skillsList = skillsList;
-    }
-
-    @XmlTransient
-    public List<Placement> getPlacementList() {
-        return placementList;
-    }
-
-    public void setPlacementList(List<Placement> placementList) {
-        this.placementList = placementList;
-    }
-
-    @XmlTransient
-    public List<Class> getClassList() {
-        return classList;
-    }
-
-    public void setClassList(List<Class> classList) {
-        this.classList = classList;
-    }
-
     public User getUser() {
         return user;
     }
@@ -244,6 +200,15 @@ public class Employee implements Serializable {
     @Override
     public String toString() {
         return "bootcamp37.mbc.entities.Employee[ id=" + id + " ]";
+    }
+
+    @XmlTransient
+    public List<Batch> getBatchList() {
+        return batchList;
+    }
+
+    public void setBatchList(List<Batch> batchList) {
+        this.batchList = batchList;
     }
     
 }

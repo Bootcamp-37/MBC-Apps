@@ -33,6 +33,9 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Course.findByName", query = "SELECT c FROM Course c WHERE c.name = :name")})
 public class Course implements Serializable {
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "course", fetch = FetchType.LAZY)
+    private List<Batch> batchList;
+
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -41,8 +44,6 @@ public class Course implements Serializable {
     @Basic(optional = false)
     @Column(name = "name")
     private String name;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "course", fetch = FetchType.LAZY)
-    private List<Batch> batchList;
 
     public Course() {
     }
@@ -72,15 +73,6 @@ public class Course implements Serializable {
         this.name = name;
     }
 
-    @XmlTransient
-    public List<Batch> getBatchList() {
-        return batchList;
-    }
-
-    public void setBatchList(List<Batch> batchList) {
-        this.batchList = batchList;
-    }
-
     @Override
     public int hashCode() {
         int hash = 0;
@@ -104,6 +96,15 @@ public class Course implements Serializable {
     @Override
     public String toString() {
         return "bootcamp37.mbc.entities.Course[ id=" + id + " ]";
+    }
+
+    @XmlTransient
+    public List<Batch> getBatchList() {
+        return batchList;
+    }
+
+    public void setBatchList(List<Batch> batchList) {
+        this.batchList = batchList;
     }
     
 }

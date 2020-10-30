@@ -13,8 +13,7 @@ import org.springframework.stereotype.Repository;
  *
  * @author Deo Lahara
  */
-
 @Repository
-public interface UserRoleRepository extends JpaRepository<UserRole, String> {
-    
+public interface UserRoleRepository extends JpaRepository<UserRole, String>{
+
 }
