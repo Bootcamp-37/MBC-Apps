@@ -5,37 +5,28 @@
  */
 package bootcamp37.mbc.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
-import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
  * @author Deo Lahara
  */
 @Entity
-@Table(name = "course")
+@Table(name = "skills_set")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Course.findAll", query = "SELECT c FROM Course c")
-    , @NamedQuery(name = "Course.findById", query = "SELECT c FROM Course c WHERE c.id = :id")
-    , @NamedQuery(name = "Course.findByName", query = "SELECT c FROM Course c WHERE c.name = :name")})
-public class Course implements Serializable {
-
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "course", fetch = FetchType.LAZY)
-    private List<Batch> batchList;
+    @NamedQuery(name = "SkillsSet.findAll", query = "SELECT s FROM SkillsSet s")
+    , @NamedQuery(name = "SkillsSet.findById", query = "SELECT s FROM SkillsSet s WHERE s.id = :id")
+    , @NamedQuery(name = "SkillsSet.findByName", query = "SELECT s FROM SkillsSet s WHERE s.name = :name")})
+public class SkillsSet implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -46,14 +37,14 @@ public class Course implements Serializable {
     @Column(name = "name")
     private String name;
 
-    public Course() {
+    public SkillsSet() {
     }
 
-    public Course(String id) {
+    public SkillsSet(String id) {
         this.id = id;
     }
 
-    public Course(String id, String name) {
+    public SkillsSet(String id, String name) {
         this.id = id;
         this.name = name;
     }
@@ -84,10 +75,10 @@ public class Course implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Course)) {
+        if (!(object instanceof SkillsSet)) {
             return false;
         }
-        Course other = (Course) object;
+        SkillsSet other = (SkillsSet) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -96,17 +87,7 @@ public class Course implements Serializable {
 
     @Override
     public String toString() {
-        return "bootcamp37.mbc.entities.Course[ id=" + id + " ]";
-    }
-
-    @JsonIgnore
-    @XmlTransient
-    public List<Batch> getBatchList() {
-        return batchList;
-    }
-
-    public void setBatchList(List<Batch> batchList) {
-        this.batchList = batchList;
+        return "bootcamp37.mbc.entities.SkillsSet[ id=" + id + " ]";
     }
     
 }

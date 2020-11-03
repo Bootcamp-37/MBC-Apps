@@ -3,16 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package bootcamp37.mbc.controllers;
+package bootcamp37.mbc.repositories;
 
-import org.springframework.stereotype.Service;
+import bootcamp37.mbc.entities.Kelas;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
  *
  * @author Deo Lahara
  */
-
-@Service
-public class CourseController {
+public interface KelasRepository extends JpaRepository<Kelas, String> {
     
 }

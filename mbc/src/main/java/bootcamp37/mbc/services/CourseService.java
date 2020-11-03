@@ -1,13 +1,12 @@
 /*
  * To change this license header, choose License Headers in Project Properties.
- * To change this tcrlate file, choose Tools | Tcrlates
- * and open the tcrlate in the editor.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
  */
 package bootcamp37.mbc.services;
 
 import bootcamp37.mbc.entities.Course;
 import bootcamp37.mbc.repositories.CourseRepository;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,28 +16,28 @@ import org.springframework.stereotype.Service;
  *
  * @author Deo Lahara
  */
-@Service
-public class CourseServices {
 
+@Service
+public class CourseService {
     CourseRepository courseRepository;
 
     @Autowired
-    public CourseServices(CourseRepository courseRepository) {
+    public CourseService(CourseRepository courseRepository) {
         this.courseRepository = courseRepository;
     }
-
-    public List<Course> getAllCourse() {
+    
+    public List<Course> getAll(){
         return courseRepository.findAll();
     }
-
-    public Optional<Course> getByIdCourse(String idcourse) {
-        Optional<Course> course = courseRepository.findById(idcourse);
+    
+    public Optional<Course> getById(String id){
+        Optional<Course> course = courseRepository.findById(id);
         return course;
     }
-
-    public boolean updateCourse(Course course) {
-        Optional<Course> courseOptional = getByIdCourse(course.getId());
-        if (courseOptional.isPresent()) {
+    
+    public boolean updateCourse (Course course){
+        Optional<Course> courseOptional = getById(course.getId());
+        if(courseOptional.isPresent()){
             Course update = courseOptional.get();
             update.setName(course.getName());
             courseRepository.save(update);
@@ -46,9 +45,9 @@ public class CourseServices {
         }
         return false;
     }
-
-    public Course save(Course course) {
-        boolean courseCheck = getByIdCourse(course.getId()).isPresent();
+    
+    public Course save(Course course){
+        boolean courseCheck = getById(course.getId()).isPresent();
         Course cr = null;
         try {
             return cr = courseRepository.save(course);
@@ -57,25 +56,18 @@ public class CourseServices {
             return cr;
         }
     }
-
-    public boolean deleteMapping(String idcourse) {
+    
+        public boolean delete(String id){
         try {
-            Course cr = getByIdCourse(idcourse).get();
+            Course cr = getById(id).get();
             System.out.println(cr.toString());
             courseRepository.delete(cr);
-            System.out.println(getByIdCourse(idcourse).get().toString() + " ini test");
+            System.out.println(getById(id).get().toString()+" ini test");
             return true;
         } catch (Exception e) {
             return false;
         }
     }
     
-        public String deleteNetbeans(String idcourse) {
-        try {
-            courseRepository.deleteById(idcourse);
-            return "delete succes id:" + idcourse;
-        } catch (Exception e) {
-            return "detele failed";
-        }
-    }
+    
 }

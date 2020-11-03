@@ -2,22 +2,39 @@
 <persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
   <persistence-unit name="bootcamp37_mbc_jar_0.0.1-SNAPSHOTPU" transaction-type="RESOURCE_LOCAL">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+    <class>bootcamp37.mbc.entities.Client</class>
+    <class>bootcamp37.mbc.entities.Employee</class>
+    <class>bootcamp37.mbc.entities.Interviewer</class>
     <class>bootcamp37.mbc.entities.Skills</class>
     <class>bootcamp37.mbc.entities.Schedule</class>
+    <class>bootcamp37.mbc.entities.Course</class>
+    <class>bootcamp37.mbc.entities.Batch</class>
     <class>bootcamp37.mbc.entities.Placement</class>
+    <class>bootcamp37.mbc.entities.Request</class>
+    <class>bootcamp37.mbc.entities.User</class>
     <class>bootcamp37.mbc.entities.Role</class>
-    <class>bootcamp37.mbc.entities.Employee</class>
-    <class>bootcamp37.mbc.entities.SkillsSet</class>
+    <class>bootcamp37.mbc.entities.Contract</class>
     <class>bootcamp37.mbc.entities.UserRole</class>
     <class>bootcamp37.mbc.entities.Site</class>
-    <class>bootcamp37.mbc.entities.Request</class>
-    <class>bootcamp37.mbc.entities.Batch</class>
-    <class>bootcamp37.mbc.entities.Interviewer</class>
-    <class>bootcamp37.mbc.entities.User</class>
-    <class>bootcamp37.mbc.entities.Contract</class>
-    <class>bootcamp37.mbc.entities.Client</class>
-    <class>bootcamp37.mbc.entities.Course</class>
-    <class>bootcamp37.mbc.entities.Class</class>
+    <class>bootcamp37.mbc.entities.ClassBatch</class>
+    <class>bootcamp37.mbc.entities.SkillsSet</class>
+    <class>bootcamp37.mbc.entities.TblSchedule</class>
+    <class>bootcamp37.mbc.entities.TblRole</class>
+    <class>bootcamp37.mbc.entities.TblUser</class>
+    <class>bootcamp37.mbc.entities.TblSkills</class>
+    <class>bootcamp37.mbc.entities.TblContract</class>
+    <class>bootcamp37.mbc.entities.TblInterviewer</class>
+    <class>bootcamp37.mbc.entities.TblPlacement</class>
+    <class>bootcamp37.mbc.entities.TblCourse</class>
+    <class>bootcamp37.mbc.entities.TblSite</class>
+    <class>bootcamp37.mbc.entities.TblClient</class>
+    <class>bootcamp37.mbc.entities.TblEmployee</class>
+    <class>bootcamp37.mbc.entities.TblClass</class>
+    <class>bootcamp37.mbc.entities.TblUserRole</class>
+    <class>bootcamp37.mbc.entities.TblRequest</class>
+    <class>bootcamp37.mbc.entities.TblBatch</class>
+    <class>bootcamp37.mbc.entities.TblSkillsSet</class>
+    <class>bootcamp37.mbc.entities.Kelas</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/data_dummy?serverTimezone=UTC&amp;useLegacyDatetimeCode=false"/>
       <property name="javax.persistence.jdbc.user" value="root"/>

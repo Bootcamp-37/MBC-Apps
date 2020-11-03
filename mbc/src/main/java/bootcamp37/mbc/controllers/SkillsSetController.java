@@ -5,14 +5,10 @@
  */
 package bootcamp37.mbc.controllers;
 
-import org.springframework.stereotype.Service;
-
 /**
  *
  * @author Deo Lahara
  */
-
-@Service
-public class CourseController {
+public class SkillsSetController {
     
 }

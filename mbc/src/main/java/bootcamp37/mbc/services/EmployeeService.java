@@ -18,26 +18,26 @@ import org.springframework.stereotype.Service;
  */
 
 @Service
-public class EmployeeServices {
-     
+public class EmployeeService {
+    
     EmployeeRepository employeeRepository;
 
     @Autowired
-    public EmployeeServices(EmployeeRepository employeeRepository) {
+    public EmployeeService(EmployeeRepository employeeRepository) {
         this.employeeRepository = employeeRepository;
     }
     
-    public List<Employee> getAllEmployee(){
+    public List<Employee> getAll(){
         return employeeRepository.findAll();
     }
     
-    public Optional<Employee> getByIdEmployee(String idemployee){
-        Optional<Employee> employee = employeeRepository.findById(idemployee);
+    public Optional<Employee> getById(String id){
+        Optional<Employee> employee = employeeRepository.findById(id);
         return employee;
     }
     
     public boolean updateEmployee (Employee employee){
-        Optional<Employee> employeeOptional = getByIdEmployee(employee.getId());
+        Optional<Employee> employeeOptional = getById(employee.getId());
         if(employeeOptional.isPresent()){
             Employee update = employeeOptional.get();
             update.setName(employee.getName());
@@ -55,7 +55,7 @@ public class EmployeeServices {
     }
     
     public Employee save(Employee employee){
-        boolean employeeCheck = getByIdEmployee(employee.getId()).isPresent();
+        boolean employeeCheck = getById(employee.getId()).isPresent();
         Employee emp = null;
         try {
             return emp = employeeRepository.save(employee);
@@ -65,24 +65,16 @@ public class EmployeeServices {
         }
     }
     
-    public boolean delete(String idemployee) {
+        public boolean delete(String id){
         try {
-            Employee emp = getByIdEmployee(idemployee).get();
+            Employee emp = getById(id).get();
             System.out.println(emp.toString());
             employeeRepository.delete(emp);
-            System.out.println(getByIdEmployee(idemployee).get().toString() + " ini test");
+            System.out.println(getById(id).get().toString()+" ini test");
             return true;
         } catch (Exception e) {
             return false;
         }
     }
     
-    public String deleteNetbeans(String idemployee) {
-        try {
-            employeeRepository.deleteById(idemployee);
-            return "delete succes id:" + idemployee;
-        } catch (Exception e) {
-            return "detele failed";
-        }
-    }
 }

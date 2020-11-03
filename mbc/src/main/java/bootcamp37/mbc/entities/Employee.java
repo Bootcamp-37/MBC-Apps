@@ -5,6 +5,7 @@
  */
 package bootcamp37.mbc.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -44,6 +45,10 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Employee.findByAddress", query = "SELECT e FROM Employee e WHERE e.address = :address")})
 public class Employee implements Serializable {
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "employee", fetch = FetchType.LAZY)
+    private List<Kelas> kelasList;
+
+    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "employee", fetch = FetchType.LAZY)
     private List<Batch> batchList;
 
@@ -97,6 +102,45 @@ public class Employee implements Serializable {
         this.phoneNumber = phoneNumber;
     }
 
+    public Employee(String id, String name, Date birthDate, String gender, String email, Date hireDate, Date endDate, String phoneNumber, String address, User user) {
+        this.id = id;
+        this.name = name;
+        this.birthDate = birthDate;
+        this.gender = gender;
+        this.email = email;
+        this.hireDate = hireDate;
+        this.endDate = endDate;
+        this.phoneNumber = phoneNumber;
+        this.address = address;
+        this.user = user;
+    }
+
+    public Employee(String id, String name, Date birthDate, String gender, String email, Date hireDate, Date endDate, String phoneNumber, String address) {
+        this.id = id;
+        this.name = name;
+        this.birthDate = birthDate;
+        this.gender = gender;
+        this.email = email;
+        this.hireDate = hireDate;
+        this.endDate = endDate;
+        this.phoneNumber = phoneNumber;
+        this.address = address;
+    }
+
+    public Employee(String id, String name, Date birthDate, String gender, String email, Date hireDate, String phoneNumber, String address) {
+        this.id = id;
+        this.name = name;
+        this.birthDate = birthDate;
+        this.gender = gender;
+        this.email = email;
+        this.hireDate = hireDate;
+        this.phoneNumber = phoneNumber;
+        this.address = address;
+    }
+    
+    
+    
+    
     public String getId() {
         return id;
     }
@@ -202,6 +246,7 @@ public class Employee implements Serializable {
         return "bootcamp37.mbc.entities.Employee[ id=" + id + " ]";
     }
 
+    @JsonIgnore
     @XmlTransient
     public List<Batch> getBatchList() {
         return batchList;
@@ -209,6 +254,16 @@ public class Employee implements Serializable {
 
     public void setBatchList(List<Batch> batchList) {
         this.batchList = batchList;
+    }
+
+    @JsonIgnore
+    @XmlTransient
+    public List<Kelas> getKelasList() {
+        return kelasList;
+    }
+
+    public void setKelasList(List<Kelas> kelasList) {
+        this.kelasList = kelasList;
     }
     
 }

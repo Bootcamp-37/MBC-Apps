@@ -5,9 +5,13 @@
  */
 package bootcamp37.mbc.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -16,10 +20,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -35,6 +41,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Batch.findByStartDate", query = "SELECT b FROM Batch b WHERE b.startDate = :startDate")
     , @NamedQuery(name = "Batch.findByEndDate", query = "SELECT b FROM Batch b WHERE b.endDate = :endDate")})
 public class Batch implements Serializable {
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "batch", fetch = FetchType.LAZY)
+    private List<Kelas> kelasList;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -52,9 +61,11 @@ public class Batch implements Serializable {
     private Date endDate;
     @JoinColumn(name = "course", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JsonIgnoreProperties(value = {"applications", "hibernateLazyInitializer"})
     private Course course;
     @JoinColumn(name = "employee", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JsonIgnoreProperties(value = {"applications", "hibernateLazyInitializer"})
     private Employee employee;
 
     public Batch() {
@@ -170,6 +181,16 @@ public class Batch implements Serializable {
     @Override
     public String toString() {
         return "bootcamp37.mbc.entities.Batch[ id=" + id + " ]";
+    }
+
+    @JsonIgnore
+    @XmlTransient
+    public List<Kelas> getKelasList() {
+        return kelasList;
+    }
+
+    public void setKelasList(List<Kelas> kelasList) {
+        this.kelasList = kelasList;
     }
     
 }

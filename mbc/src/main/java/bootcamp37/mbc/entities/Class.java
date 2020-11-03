@@ -5,59 +5,56 @@
  */
 package bootcamp37.mbc.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
-import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
  * @author Deo Lahara
  */
 @Entity
-@Table(name = "course")
+@Table(name = "class")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Course.findAll", query = "SELECT c FROM Course c")
-    , @NamedQuery(name = "Course.findById", query = "SELECT c FROM Course c WHERE c.id = :id")
-    , @NamedQuery(name = "Course.findByName", query = "SELECT c FROM Course c WHERE c.name = :name")})
-public class Course implements Serializable {
-
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "course", fetch = FetchType.LAZY)
-    private List<Batch> batchList;
+    @NamedQuery(name = "Class.findAll", query = "SELECT c FROM Class c")
+    , @NamedQuery(name = "Class.findById", query = "SELECT c FROM Class c WHERE c.id = :id")})
+public class Class implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
     @Column(name = "id")
     private String id;
-    @Basic(optional = false)
-    @Column(name = "name")
-    private String name;
+    @JoinColumn(name = "batch", referencedColumnName = "id")
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    private Batch batch;
+    @JoinColumn(name = "employee", referencedColumnName = "id")
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    private Employee employee;
 
-    public Course() {
+    public Class() {
     }
 
-    public Course(String id) {
+    public Class(String id) {
         this.id = id;
     }
 
-    public Course(String id, String name) {
+    public Class(String id, Batch batch, Employee employee) {
         this.id = id;
-        this.name = name;
+        this.batch = batch;
+        this.employee = employee;
     }
-
+    
     public String getId() {
         return id;
     }
@@ -66,12 +63,20 @@ public class Course implements Serializable {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public Batch getBatch() {
+        return batch;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setBatch(Batch batch) {
+        this.batch = batch;
+    }
+
+    public Employee getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
     }
 
     @Override
@@ -84,10 +89,10 @@ public class Course implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Course)) {
+        if (!(object instanceof Class)) {
             return false;
         }
-        Course other = (Course) object;
+        Class other = (Class) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -96,17 +101,7 @@ public class Course implements Serializable {
 
     @Override
     public String toString() {
-        return "bootcamp37.mbc.entities.Course[ id=" + id + " ]";
-    }
-
-    @JsonIgnore
-    @XmlTransient
-    public List<Batch> getBatchList() {
-        return batchList;
-    }
-
-    public void setBatchList(List<Batch> batchList) {
-        this.batchList = batchList;
+        return "bootcamp37.mbc.entities.Class[ id=" + id + " ]";
     }
     
 }

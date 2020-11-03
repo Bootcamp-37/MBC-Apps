@@ -5,7 +5,6 @@
  */
 package bootcamp37.mbc.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
@@ -26,16 +25,13 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author Deo Lahara
  */
 @Entity
-@Table(name = "course")
+@Table(name = "client")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Course.findAll", query = "SELECT c FROM Course c")
-    , @NamedQuery(name = "Course.findById", query = "SELECT c FROM Course c WHERE c.id = :id")
-    , @NamedQuery(name = "Course.findByName", query = "SELECT c FROM Course c WHERE c.name = :name")})
-public class Course implements Serializable {
-
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "course", fetch = FetchType.LAZY)
-    private List<Batch> batchList;
+    @NamedQuery(name = "Client.findAll", query = "SELECT c FROM Client c")
+    , @NamedQuery(name = "Client.findById", query = "SELECT c FROM Client c WHERE c.id = :id")
+    , @NamedQuery(name = "Client.findByName", query = "SELECT c FROM Client c WHERE c.name = :name")})
+public class Client implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -45,15 +41,17 @@ public class Course implements Serializable {
     @Basic(optional = false)
     @Column(name = "name")
     private String name;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "client", fetch = FetchType.LAZY)
+    private List<Site> siteList;
 
-    public Course() {
+    public Client() {
     }
 
-    public Course(String id) {
+    public Client(String id) {
         this.id = id;
     }
 
-    public Course(String id, String name) {
+    public Client(String id, String name) {
         this.id = id;
         this.name = name;
     }
@@ -74,6 +72,15 @@ public class Course implements Serializable {
         this.name = name;
     }
 
+    @XmlTransient
+    public List<Site> getSiteList() {
+        return siteList;
+    }
+
+    public void setSiteList(List<Site> siteList) {
+        this.siteList = siteList;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -84,10 +91,10 @@ public class Course implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Course)) {
+        if (!(object instanceof Client)) {
             return false;
         }
-        Course other = (Course) object;
+        Client other = (Client) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -96,17 +103,7 @@ public class Course implements Serializable {
 
     @Override
     public String toString() {
-        return "bootcamp37.mbc.entities.Course[ id=" + id + " ]";
-    }
-
-    @JsonIgnore
-    @XmlTransient
-    public List<Batch> getBatchList() {
-        return batchList;
-    }
-
-    public void setBatchList(List<Batch> batchList) {
-        this.batchList = batchList;
+        return "bootcamp37.mbc.entities.Client[ id=" + id + " ]";
     }
     
 }
