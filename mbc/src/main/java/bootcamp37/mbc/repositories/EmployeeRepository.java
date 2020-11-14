@@ -5,10 +5,16 @@
  */
 package bootcamp37.mbc.repositories;
 
+import bootcamp37.mbc.entities.Employee;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
 /**
  *
  * @author ZFH
  */
-public interface EmployeeRepository {
+
+@Repository
+public interface EmployeeRepository extends JpaRepository<Employee, String>{
     
 }

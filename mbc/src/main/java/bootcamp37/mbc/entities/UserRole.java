@@ -20,7 +20,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Deo Lahara
+ * @author ZFH
  */
 @Entity
 @Table(name = "user_role")
@@ -54,7 +54,7 @@ public class UserRole implements Serializable {
         this.role = role;
         this.user = user;
     }
-    
+
     public String getId() {
         return id;
     }

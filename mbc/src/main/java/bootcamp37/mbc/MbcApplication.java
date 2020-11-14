@@ -8,7 +8,7 @@ public class MbcApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(MbcApplication.class, args);
-                System.out.println("Sistem sedang menjalankan web");
+                System.out.println("System running web");
 	}
 
 }
